@@ -7,6 +7,7 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 include_directories(includes)
 
+# source files
 set(SOURCES
     src/main.c
     src/camera.c
@@ -17,15 +18,23 @@ set(SOURCES
     src/vector.c
 )
 
+# objects and renders path macro
 add_compile_definitions(OBJECTS="${CMAKE_CURRENT_SOURCE_DIR}/objects")
 add_compile_definitions(RENDERS="${CMAKE_CURRENT_SOURCE_DIR}/renders")
 
 add_executable(Raytracer ${SOURCES})
 
-
 if (WIN32)
     message("Compiling on Windows")
-    add_compile_definitions(VISUAL_STUDIO)
+    add_compile_definitions(WINDOWS)
+    if (MSVC)
+        message("Compiling with Microsoft Visual Studio")
+        add_compile_definitions(VISUAL_STUDIO)
+    endif()
 elseif (UNIX)
     message("Compiling on Unix-based OS")
+    add_compile_definitions(UNIXOS)
+elseif (APPLE)
+    message("Compiling on macOS")
+    add_compile_definitions(MACOS)
 endif()

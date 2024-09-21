@@ -10,7 +10,7 @@ You can also run the example below
 ========================================================================*/
 
 int main() {
-	//printf("%s\n", CONCAT_PATH(OBJECTS, "/monkey.obj"));
+
 	// set up object
 	Object3D* object = Read_Wavefront(CONCAT_PATH(OBJECTS, "/monkey.obj"));
 	Set_Material_OBJ(object, 0, lime);
@@ -18,7 +18,7 @@ int main() {
 	Export_OBJ(object, CONCAT_PATH(OBJECTS, "/updated.obj"));
 
 	// set up scene
-	Object3D* objects[10];
+	Object3D* objects[10] = { 0 };
 	objects[0] = object;
 	Light l = { (Vector3) { -1.5f , 1.9f, 4.0f }, 14 };
 	Light lights[10];

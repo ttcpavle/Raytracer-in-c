@@ -222,6 +222,7 @@ Object3D* Read_Wavefront(char* filename) {
 	FILE* obj = fopen(filename, "r");
 	if (obj == NULL) {
 		fprintf(stderr, "Couldn't open .obj file\n");
+		exit(EXIT_FAILURE);
 		return NULL;
 	}
 	Object3D* newobject = (Object3D*)malloc(sizeof(Object3D));

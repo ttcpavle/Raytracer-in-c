@@ -182,6 +182,7 @@ Color* Render(Object3D* objects[], Light lights[], int num_obj, int num_lights, 
     for (int i = 0; i < num_obj; i++) {
         if (objects[i] == NULL) {
             fprintf(stderr, "Invalid object in scene, render abort\n");
+            exit(EXIT_FAILURE);
             return NULL;
         }
     }
