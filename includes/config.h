@@ -1,8 +1,16 @@
 #pragma once
 
+// used to access files in objects and renders directories
+// choose macro OBJECTS to access objects directory
+// choose macro RENDERS to access renders directory
+// example CONCAT_PATH(OBJECTS, "cube.obj")
+#define CONCAT_PATH(PATH, FILENAME) PATH FILENAME
+
+#ifdef VISUAL_STUDIO
 // ignore security warnings for visual studio
 #define _CRT_SECURE_NO_WARNINGS
 
+#endif
 // for constants like M_PI
 #define _USE_MATH_DEFINES
 

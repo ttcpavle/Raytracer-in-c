@@ -17,17 +17,15 @@ set(SOURCES
     src/vector.c
 )
 
+add_compile_definitions(OBJECTS="${CMAKE_CURRENT_SOURCE_DIR}/objects")
+add_compile_definitions(RENDERS="${CMAKE_CURRENT_SOURCE_DIR}/renders")
+
 add_executable(Raytracer ${SOURCES})
 
-add_custom_command(
-    TARGET Raytracer POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:Raytracer>/objects
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/objects $<TARGET_FILE_DIR:Raytracer>/objects
-)
 
 if (WIN32)
     message("Compiling on Windows")
+    add_compile_definitions(VISUAL_STUDIO)
 elseif (UNIX)
     message("Compiling on Unix-based OS")
 endif()

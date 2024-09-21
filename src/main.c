@@ -10,11 +10,12 @@ You can also run the example below
 ========================================================================*/
 
 int main() {
+	//printf("%s\n", CONCAT_PATH(OBJECTS, "/monkey.obj"));
 	// set up object
-	Object3D* object = Read_Wavefront("objects/monkey.obj");
+	Object3D* object = Read_Wavefront(CONCAT_PATH(OBJECTS, "/monkey.obj"));
 	Set_Material_OBJ(object, 0, lime);
 	Object_Scale(object, 2);
-	Export_OBJ(object, "objects/updated.obj");
+	Export_OBJ(object, CONCAT_PATH(OBJECTS, "/updated.obj"));
 
 	// set up scene
 	Object3D* objects[10];
@@ -27,7 +28,7 @@ int main() {
 
 	// render
 	Color* image = Render(objects, lights, 1, 1, &cam);
-	stbi_write_png("renders/render.png", WIDTH, HEIGHT, 3, image, WIDTH * sizeof(Color));
+	stbi_write_png(CONCAT_PATH(RENDERS, "/render.png"), WIDTH, HEIGHT, 3, image, WIDTH * sizeof(Color));
 
 	return 0;
 }
