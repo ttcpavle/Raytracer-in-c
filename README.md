@@ -11,9 +11,15 @@ You can:
 
 ## How to run (windows/unix/macOS)
 
-1) Clone the repository `git clone https://github.com/ttcpavle/Raytracer-in-c.git` in desired directory
+1) Clone the repository in desired directory
+ ```bash
+ git clone https://github.com/ttcpavle/Raytracer-in-c.git
+ ```
 2) Navigate to build directory
-3) Run `cmake ..`
+3) Run
+```bash
+cmake ..
+```
 
 After those steps:
 - If you are using windows, open the `Raytracer.sln` solution (if visual studio was selected compiler). Select the Raytracer as startup project and run. Header files should appear in solution explorer under Header files.
