@@ -1,0 +1,4 @@
+# ignore changes to build, renders and objects
+build/
+renders/
+objects/
