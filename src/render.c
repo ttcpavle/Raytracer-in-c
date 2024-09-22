@@ -186,25 +186,42 @@ Color* Render(Object3D* objects[], Light lights[], int num_obj, int num_lights, 
             return NULL;
         }
     }
-    printf("\nRendering started...\n");
-    clock_t begin = clock();
-    Color* image = (Color*)malloc(WIDTH * HEIGHT * sizeof(Color));
 
-    for (int y = 0; y < HEIGHT; ++y) {
-        for (int x = 0; x < WIDTH; ++x) {
-
-            Ray primRay;
-            int index = y * WIDTH + x;
-            if ((index % ((WIDTH * HEIGHT) / 10)) == 0 && index != 0) {
-                printf("Render %d%%...\n", (100 * index) / (WIDTH * HEIGHT));
-            }
-
-            computePrimRay(x, y, &primRay, camera);
-            image[index] = Trace(objects, lights, num_obj, num_lights, primRay, MAX_RAY_DEPTH);
-        }
+    char choice;
+    printf("\nStart rendering? [Y/n]\n");
+    scanf("%c", &choice);
+    if (choice == 'n' || choice == 'N') {
+        printf("Rendering cancelled\n");
+        exit(EXIT_SUCCESS);
     }
-    clock_t end = clock();
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Render 100%%\nRender time: %.3lfs\n", time_spent);
-    return image;
+    else if (choice == 'y' || choice == 'Y') {
+
+        printf("\nRendering started...\n");
+        clock_t begin = clock();
+        Color* image = (Color*)malloc(WIDTH * HEIGHT * sizeof(Color));
+
+        for (int y = 0; y < HEIGHT; ++y) {
+            for (int x = 0; x < WIDTH; ++x) {
+
+                Ray primRay;
+                int index = y * WIDTH + x;
+                if ((index % ((WIDTH * HEIGHT) / 10)) == 0 && index != 0) {
+                    printf("Render %d%%...\n", (100 * index) / (WIDTH * HEIGHT));
+                }
+
+                computePrimRay(x, y, &primRay, camera);
+                image[index] = Trace(objects, lights, num_obj, num_lights, primRay, MAX_RAY_DEPTH);
+            }
+        }
+        clock_t end = clock();
+        double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+        printf("Render 100%%\nRender time: %.3lfs\n", time_spent);
+        return image;
+    }
+    else {
+        printf("Invalid choice\n");
+        exit(EXIT_FAILURE);
+        return NULL;
+    }
+    
 }

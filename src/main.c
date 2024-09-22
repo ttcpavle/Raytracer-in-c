@@ -9,7 +9,7 @@ Here in main function you can modify object, export it and render it with local 
 You can also run the example below
 ========================================================================*/
 
-int main() {
+int main(int argc, char* argv[]) {
 
 	// set up object
 	Object3D* object = Read_Wavefront(CONCAT_PATH(OBJECTS, "/monkey.obj"));

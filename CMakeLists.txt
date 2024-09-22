@@ -18,11 +18,21 @@ set(SOURCES
     src/vector.c
 )
 
+set(HEADER_FILES
+    includes/config.h
+    includes/camera.h
+    includes/color.h
+    includes/object.h
+    includes/render.h
+    includes/transformations.h
+    includes/vector.h
+)
+
 # objects and renders path macro
 add_compile_definitions(OBJECTS="${CMAKE_CURRENT_SOURCE_DIR}/objects")
 add_compile_definitions(RENDERS="${CMAKE_CURRENT_SOURCE_DIR}/renders")
 
-add_executable(Raytracer ${SOURCES})
+add_executable(Raytracer ${SOURCES} ${HEADER_FILES})
 
 if (WIN32)
     message("Compiling on Windows")
