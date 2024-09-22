@@ -1,6 +1,6 @@
 # Simple ray-tracer in C
 <p align="center">
-    <img src="/Raytracer/renders/monkey.png" alt="Rendered image example" width="500"/>
+    <img src="/Raytracer/renders/monkey.png" alt="Rendered image example" width="50%"/>
 </p>
 
 ## What does this program do
@@ -10,13 +10,20 @@ You can:
 - render object with simple local renderer
 
 ## How to run (windows/unix/macOS)
-In visual studio you can do this:
-1) Clone the repository `git clone https://github.com/ttcpavle/Raytracer-in-c.git`
+
+1) Clone the repository `git clone https://github.com/ttcpavle/Raytracer-in-c.git` in desired directory
 2) Navigate to build directory
 3) Run `cmake ..`
 
-- If you are using windows, open the `Raytracer.sln` solution (if visual studio was selected compiler). Select the Raytracer as startup project and run debug. Header files should appear in solution explorer under Header files.
+After those steps:
+- If you are using windows, open the `Raytracer.sln` solution (if visual studio was selected compiler). Select the Raytracer as startup project and run. Header files should appear in solution explorer under Header files.
 - If you are using linux, run generated files for building a project. If cmake generated makefile, run `make` and than run the executable `./Raytracer`
+<p>
+Required software: <br>
+Cmake installation: https://www.youtube.com/watch?v=8_X5Iq9niDE <br>
+Git installation: https://www.youtube.com/watch?v=JgOs70Y7jew <br>
+</p>
+
 
 ## How to use
 Everything is controlled in `main()` function, there is no console or windows interface, this is only a simple rendering software. You can see in the example how things are set up:
