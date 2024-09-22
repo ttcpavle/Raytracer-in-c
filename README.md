@@ -11,7 +11,7 @@ You can:
 
 ## How to run (windows/unix/macOS)
 In visual studio you can do this:
-1) Clone the repository `git clone `
+1) Clone the repository `git clone https://github.com/ttcpavle/Raytracer-in-c.git`
 2) Navigate to build directory
 3) Run `cmake ..`
 
