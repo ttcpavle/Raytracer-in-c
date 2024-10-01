@@ -22,7 +22,7 @@ cmake ..
 ```
 
 After those steps:
-- If you are using windows, open the `Raytracer.sln` solution (if visual studio was selected compiler). Select the Raytracer as startup project and run. Header files should appear in solution explorer under Header files.
+- If you are using windows, open the `Raytracer.sln` solution (if visual studio was selected compiler). Select the Raytracer as startup project and run. Header files should appear in solution explorer under Header files. HINT: change mode from debug to release for much faster rendering.
 - If you are using linux, run generated files for building a project. If cmake generated makefile, run `make` and than run the executable `./Raytracer`
 <p>
 Required software: <br>
@@ -59,7 +59,6 @@ Everything is controlled in `main()` function, there is no console or windows in
 - reading .mtl files
 - rendering multiple objects/lights and shadows
 - preserving n-gon faces
-- using isGlass property
 - undo transforms
 
 ### Improvement to do:
@@ -67,4 +66,5 @@ Everything is controlled in `main()` function, there is no console or windows in
 - Better shading with isGlass information (reflection and refraction)
 - Rendering equation (Monte Carlo integration)
 - Origin of object fixes
-- OpenGL or windows.h for GUI
+- windows.h for GUI (im not too familiar with this library)
+- maybe rewrite everything in OpenGL
