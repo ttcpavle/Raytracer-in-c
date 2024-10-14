@@ -16,7 +16,7 @@ You can:
  git clone https://github.com/ttcpavle/Raytracer-in-c.git
  ```
 2) Navigate to build directory
-3) Run
+3) Run:
 ```bash
 cmake ..
 ```
@@ -33,7 +33,7 @@ Git installation: https://www.youtube.com/watch?v=JgOs70Y7jew <br>
 
 ## How to use
 Everything is controlled in `main()` function, there is no console or windows interface, this is only a simple rendering software. You can see in the example how things are set up:
-1) Adjust settings in config.h accoring to your preferences
+1) Adjust settings in settings.h accoring to your preferences
 2) Read object, set material, transform it and export it if you want
 3) Set up objects array and lights array (currently rendering supports a single object and light)
 4) Set up camera (point look_at which is where camera is looking, eye which is camera location, fov and aspect ratio ideally set to `(float)WIDTH/HEIGHT`
@@ -42,13 +42,12 @@ Everything is controlled in `main()` function, there is no console or windows in
 
 - Info about functions is available in .h or .c files
 - More render examples in Raytracer/renders/
-- **REMEMBER TO EDIT CONFIG.H**
+- **REMEMBER TO EDIT SETTINGS.H**
 
 ### Features:
-
 - Faces are triangulated while reading wavefront (fan triangulation)
 - Exported object will maintain triangulated faces
-- Moller Trumbore algorighm is used for ray triangle intersection
+- Moller Trumbore algorithm is used for ray triangle intersection
 - Gauss-Jordan algorithm is used for inverse matrix
 - You can follow render progress on console
 - Smooth shaded object (Gouraud shading)
