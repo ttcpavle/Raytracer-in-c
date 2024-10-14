@@ -7,7 +7,6 @@ set(CMAKE_C_STANDARD_REQUIRED True)
 
 include_directories(includes)
 
-# source files
 set(SOURCES
     src/main.c
     src/camera.c
@@ -19,13 +18,14 @@ set(SOURCES
 )
 
 set(HEADER_FILES
-    includes/config.h
+    includes/common.h
     includes/camera.h
     includes/color.h
     includes/object.h
     includes/render.h
     includes/transformations.h
     includes/vector.h
+    includes/settings.h
 )
 
 # objects and renders path macro

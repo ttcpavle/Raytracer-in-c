@@ -1,8 +1,8 @@
-#include "../includes/config.h"
-#include "../includes/object.h"
-#include "../includes/transformations.h"
-#include "../includes/render.h"
-#include "../includes/stb_image_write.h"
+#include "common.h"
+#include "object.h"
+#include "transformations.h"
+#include "render.h"
+#include "stb_image_write.h"
 
 /*=======================================================================
 Here in main function you can modify object, export it and render it with local renderer
@@ -12,10 +12,10 @@ You can also run the example below
 int main(int argc, char* argv[]) {
 
 	// set up object
-	Object3D* object = Read_Wavefront(CONCAT_PATH(OBJECTS, "/monkey.obj"));
+	Object3D* object = Read_Wavefront(FILEPATH(OBJECTS, "cube.obj"));
 	Set_Material_OBJ(object, 0, lime);
 	Object_Scale(object, 2);
-	Export_OBJ(object, CONCAT_PATH(OBJECTS, "/updated.obj"));
+	Export_OBJ(object, FILEPATH(OBJECTS, "updated.obj"));
 
 	// set up scene
 	Object3D* objects[10] = { 0 };
@@ -28,7 +28,9 @@ int main(int argc, char* argv[]) {
 
 	// render
 	Color* image = Render(objects, lights, 1, 1, &cam);
-	stbi_write_png(CONCAT_PATH(RENDERS, "/render.png"), WIDTH, HEIGHT, 3, image, WIDTH * sizeof(Color));
+	stbi_write_png(FILEPATH(OBJECTS, "render.png"), WIDTH, HEIGHT, 3, image, WIDTH * sizeof(Color));
+
+	openImage(FILEPATH(OBJECTS,"render.png"));
 
 	return 0;
 }

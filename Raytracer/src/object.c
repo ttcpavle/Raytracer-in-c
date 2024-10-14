@@ -1,20 +1,16 @@
-#include "../includes/config.h"
+#include "common.h"
+#include "vector.h"
+#include "transformations.h"
+#include "object.h"
+#include "color.h"
 #include <string.h>
-#include "../includes/vector.h"
-#include "../includes/transformations.h"
-#include "../includes/object.h"
-#include "../includes/color.h"
-
-float degrees_to_radians(float angle) {
-	return angle * ((float)M_PI / 180);
-}
 
 void Rotate_Object_X(Object3D* object, float angle_Deg) {
 	if (object == NULL) {
 		fprintf(stderr, "Object was NULL pointer, transformation failed\n");
 		return;
 	}
-	t_matrix r = t_rotate_x(degrees_to_radians(angle_Deg));
+	t_matrix r = t_rotate_x(DEG_TO_RAD(angle_Deg));
 	t_matrix inv = inverse(r);
 	for (int i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
@@ -31,7 +27,7 @@ void Rotate_Object_Y(Object3D* object, float angle_Deg) {
 		fprintf(stderr, "Object was NULL pointer, transformation failed\n");
 		return;
 	}
-	t_matrix r = t_rotate_y(degrees_to_radians(angle_Deg));
+	t_matrix r = t_rotate_y(DEG_TO_RAD(angle_Deg));
 	t_matrix inv = inverse(r);
 	for (int i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
@@ -48,7 +44,7 @@ void Rotate_Object_Z(Object3D* object, float angle_Deg) {
 		fprintf(stderr, "Object was NULL pointer, transformation failed\n");
 		return;
 	}
-	t_matrix r = t_rotate_z(degrees_to_radians(angle_Deg));
+	t_matrix r = t_rotate_z(DEG_TO_RAD(angle_Deg));
 	t_matrix inv = inverse(r);
 	for (int i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);

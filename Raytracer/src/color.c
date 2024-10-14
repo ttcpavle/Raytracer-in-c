@@ -1,4 +1,4 @@
-#include "../includes/color.h"
+#include "color.h"
 
 //Yes, this file is currently just for constants
 const Color red = { 255, 0, 0 };

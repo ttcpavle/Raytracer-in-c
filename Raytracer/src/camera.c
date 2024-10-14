@@ -1,7 +1,7 @@
-#include "../includes/config.h"
-#include "../includes/vector.h"
-#include "../includes/transformations.h"
-#include "../includes/camera.h"
+#include "common.h"
+#include "vector.h"
+#include "transformations.h"
+#include "camera.h"
 
 // from: https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/lookat-function/framing-lookat-function.html
 static t_matrix calc_cam_to_world(Vector3 eye, Vector3 look_at, Vector3 up) {

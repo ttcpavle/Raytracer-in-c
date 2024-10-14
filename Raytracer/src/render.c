@@ -1,13 +1,13 @@
-#include "../includes/config.h"
-#include "../includes/color.h"
-#include "../includes/render.h"
-#include "../includes/object.h"
-#include "../includes/transformations.h"
-#include "../includes/camera.h"
+#include "common.h"
+#include "color.h"
+#include "render.h"
+#include "object.h"
+#include "transformations.h"
+#include "camera.h"
 #include <time.h>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "../includes/stb_image_write.h"
+#include "stb_image_write.h"
 
 #define EPSILON 0.000001
 
@@ -133,7 +133,7 @@ static Color Trace(Object3D* objects[], Light lights[], int num_obj, int num_lig
 
     Object3D* object = NULL;
     float minDistance = INFINITY;
-    Color backgroundColor = gray;
+    Color backgroundColor = BACKGROUND_COLOR;
     Vector3 pHit;
     Vector3 nHit;
     Vector3 pHit_min;
@@ -225,3 +225,35 @@ Color* Render(Object3D* objects[], Light lights[], int num_obj, int num_lights, 
     }
     
 }
+
+#ifdef WINDOWS
+
+#include <windows.h>
+
+void openImage(const char* filePath) {
+    ShellExecute(0, "open", filePath, 0, 0, SW_SHOW);
+}
+
+#elif defined MACOS
+
+#include <string.h>
+
+void openImage(const char* filePath) {
+    char command[256];
+    strcpy(command, "open ");
+    strcat(command, filePath);
+    system(command);
+}
+
+#elif defined UNIXOS
+
+#include <string.h>
+
+void openImage(const char* filePath) {
+    char command[256];
+    strcpy(command, "xdg-open ");
+    strcat(command, filePath);
+    system(command);
+
+
+#endif

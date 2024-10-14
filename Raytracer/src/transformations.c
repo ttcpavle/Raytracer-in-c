@@ -1,6 +1,6 @@
-#include "../includes/config.h"
-#include "../includes/transformations.h"
-#include "../includes/vector.h"
+#include "common.h"
+#include "transformations.h"
+#include "vector.h"
 
 t_matrix identity() {
 	t_matrix identity = {

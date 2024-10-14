@@ -1,5 +1,5 @@
-#include "../includes/config.h"
-#include "../includes/vector.h"
+#include "common.h"
+#include "vector.h"
 
 const Vector3 world_up = { 0.0f, 1.0f, 0.0f }; //y axis is up
 const Vector3 vector_zero = { 0.0f, 0.0f, 0.0f };
@@ -46,7 +46,7 @@ Vector3 negate(Vector3 v) {
 }
 
 Quaternion quaternion_from_axis_angle(Vector3 axis, float angle_Deg) {
-	float angle = angle_Deg * M_PI / 180.0;
+	float angle = DEG_TO_RAD(angle_Deg);
 	float half_angle = angle / 2.0f;
 	Quaternion q;
 	q.w = cosf(half_angle);

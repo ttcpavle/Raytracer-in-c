@@ -35,8 +35,6 @@ typedef struct Object3D {
 	Vector3 origin;
 }Object3D;
 
-float degrees_to_radians(float angle);
-
 /* =======================================================================
  FUNCTION: Read_Wavefront
  Reads wavefront file format (.obj)

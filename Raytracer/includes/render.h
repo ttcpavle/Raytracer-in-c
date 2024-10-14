@@ -30,5 +30,6 @@ typedef struct {
  -currently supports only 1 object and 1 light in array!!!
 =======================================================================*/
 Color* Render(Object3D* objects[], Light lights[], int num_obj, int num_lights, Camera* camera);
+void openImage(const char* filePath);
 
 #endif
