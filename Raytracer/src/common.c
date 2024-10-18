@@ -28,6 +28,7 @@ void openImage(const char* filePath) {
     strcpy(command, "xdg-open ");
     strcat(command, filePath);
     system(command);
+}
 
 
 #endif
