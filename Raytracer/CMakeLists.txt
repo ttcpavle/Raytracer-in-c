@@ -15,6 +15,7 @@ set(SOURCES
     src/render.c
     src/transformations.c
     src/vector.c
+    src/common.c
 )
 
 set(HEADER_FILES

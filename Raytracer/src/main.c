@@ -2,6 +2,8 @@
 #include "object.h"
 #include "transformations.h"
 #include "render.h"
+
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
 /*=======================================================================
