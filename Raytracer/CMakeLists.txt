@@ -32,7 +32,15 @@ set(HEADER_FILES
 add_compile_definitions(OBJECTS="${CMAKE_CURRENT_SOURCE_DIR}/objects")
 add_compile_definitions(RENDERS="${CMAKE_CURRENT_SOURCE_DIR}/renders")
 
+
 add_executable(Raytracer ${SOURCES} ${HEADER_FILES})
+
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+    target_link_libraries(Raytracer PUBLIC OpenMP::OpenMP_CXX)
+    target_compile_definitions(Raytracer PUBLIC USE_OPENMP)
+    message("OpenMP linked successfully")
+endif()
 
 if (WIN32)
     message("Compiling on Windows")

@@ -12,7 +12,7 @@ You can also run the example below
 int main(int argc, char* argv[]) {
 
 	// set up object
-	Object3D* object = Read_Wavefront(FILEPATH(OBJECTS, "cube.obj"));
+	Object3D* object = Read_Wavefront(FILEPATH(OBJECTS, "monkey.obj"));
 	Set_Material_OBJ(object, 0, lime);
 	Object_Scale(object, 2);
 	Export_OBJ(object, FILEPATH(OBJECTS, "updated.obj"));
