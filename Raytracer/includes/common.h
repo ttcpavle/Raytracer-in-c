@@ -23,4 +23,6 @@
 #include <math.h>
 #include "settings.h"
 
+void openImage(const char* filePath); // open image command
+
 #endif // COMMON_H

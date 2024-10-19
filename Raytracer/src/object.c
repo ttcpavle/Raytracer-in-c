@@ -4,6 +4,7 @@
 #include "object.h"
 #include "color.h"
 #include <string.h>
+#include <omp.h>
 
 void Rotate_Object_X(Object3D* object, float angle_Deg) {
 	if (object == NULL) {
@@ -12,11 +13,14 @@ void Rotate_Object_X(Object3D* object, float angle_Deg) {
 	}
 	t_matrix r = t_rotate_x(DEG_TO_RAD(angle_Deg));
 	t_matrix inv = inverse(r);
-	for (int i = 0; i < object->num_normals; i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
 		object->normals[i] = normalize(object->normals[i]);
 	}
-	for (int i = 0; i < object->num_vertices; i++) {
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices; i++) {
 		transform_vector(r, &object->vertices[i]);
 	}
 	printf("Object <%s> rotated on X\n", object->name);
@@ -29,11 +33,14 @@ void Rotate_Object_Y(Object3D* object, float angle_Deg) {
 	}
 	t_matrix r = t_rotate_y(DEG_TO_RAD(angle_Deg));
 	t_matrix inv = inverse(r);
-	for (int i = 0; i < object->num_normals; i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
 		object->normals[i] = normalize(object->normals[i]);
 	}
-	for (int i = 0; i < object->num_vertices; i++) {
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices; i++) {
 		transform_vector(r, &object->vertices[i]);
 	}
 	printf("Object <%s> rotated on Y\n", object->name);
@@ -46,11 +53,14 @@ void Rotate_Object_Z(Object3D* object, float angle_Deg) {
 	}
 	t_matrix r = t_rotate_z(DEG_TO_RAD(angle_Deg));
 	t_matrix inv = inverse(r);
-	for (int i = 0; i < object->num_normals; i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
 		object->normals[i] = normalize(object->normals[i]);
 	}
-	for (int i = 0; i < object->num_vertices; i++) {
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices; i++) {
 		transform_vector(r, &object->vertices[i]);
 	}
 	printf("Object <%s> rotated on Z\n", object->name);
@@ -64,11 +74,14 @@ void Quaternion_Rotate(Object3D* object, Vector3 axis, float angle_Deg) {
 	Quaternion q = quaternion_from_axis_angle(axis, angle_Deg);
 	t_matrix r = quaternion_to_matrix(q);
 	t_matrix inv = inverse(r);
-	for (int i = 0; i < object->num_normals; i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
 		object->normals[i] = normalize(object->normals[i]);
 	}
-	for (int i = 0; i < object->num_vertices; i++) {
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices; i++) {
 		transform_vector(r, &object->vertices[i]);
 	}
 	printf("Object <%s> rotated with quaternion\n", object->name);
@@ -81,11 +94,14 @@ void Rotate_Euler_ZYX(Object3D* object, float roll, float pitch, float yaw) {
 	}
 	t_matrix r = euler_to_matrix((Euler_Angles) { roll, pitch, yaw });
 	t_matrix inv = inverse(r);
-	for (int i = 0; i < object->num_normals; i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
 		object->normals[i] = normalize(object->normals[i]);
 	}
-	for (int i = 0; i < object->num_vertices; i++) {
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices; i++) {
 		transform_vector(r, &object->vertices[i]);
 	}
 	printf("Object <%s> rotated with Euler ZYX\n", object->name);
@@ -97,7 +113,9 @@ void Object_Scale(Object3D* object, float factor) {
 		return;
 	}
 	t_matrix s = t_scale(factor);
-	for (int i = 0; i < object->num_vertices;i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices;i++) {
 		transform_vector(s, &object->vertices[i]);
 	}
 	printf("Object <%s> scaled\n", object->name);
@@ -114,11 +132,14 @@ void Object_Scale_XYZ(Object3D* object, float factor_x, float factor_y, float fa
 	}
 	t_matrix s = t_scale_xyz(factor_x, factor_y, factor_z);
 	t_matrix inv = inverse(s);
-	for (int i = 0; i < object->num_normals; i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_normals; i++) {
 		transform_vector(inv, &object->normals[i]);
 		object->normals[i] = normalize(object->normals[i]);
 	}
-	for (int i = 0; i < object->num_vertices;i++) {
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices;i++) {
 		transform_vector(s, &object->vertices[i]);
 	}
 	printf("Object <%s> scaled\n", object->name);
@@ -130,7 +151,9 @@ void Object_Translate_XYZ(Object3D* object, float tx, float ty, float tz) {
 		return;
 	}
 	t_matrix t = t_translate(tx, ty, tz);
-	for (int i = 0; i < object->num_vertices;i++) {
+	int i = 0;
+#pragma omp parallel for
+	for (i = 0; i < object->num_vertices;i++) {
 		transform_point(t, &object->vertices[i]);
 	}
 	printf("Object <%s> translated\n", object->name);

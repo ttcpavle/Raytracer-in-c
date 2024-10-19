@@ -5,9 +5,7 @@
 #include "transformations.h"
 #include "camera.h"
 #include <time.h>
-
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
+#include <omp.h>
 
 #define EPSILON 0.000001
 
@@ -200,22 +198,36 @@ Color* Render(Object3D* objects[], Light lights[], int num_obj, int num_lights, 
         clock_t begin = clock();
         Color* image = (Color*)malloc(WIDTH * HEIGHT * sizeof(Color));
 
-        for (int y = 0; y < HEIGHT; ++y) {
+        int y = 0;
+        int renderedPixels = 0;
+        const int totalPixels = WIDTH * HEIGHT;
+#pragma omp parallel for
+        for ( y = 0; y < HEIGHT; ++y) {
             for (int x = 0; x < WIDTH; ++x) {
 
+                // fill image pixels with color
                 Ray primRay;
                 int index = y * WIDTH + x;
-                if ((index % ((WIDTH * HEIGHT) / 10)) == 0 && index != 0) {
-                    printf("Render %d%%...\n", (100 * index) / (WIDTH * HEIGHT));
-                }
-
                 computePrimRay(x, y, &primRay, camera);
                 image[index] = Trace(objects, lights, num_obj, num_lights, primRay, MAX_RAY_DEPTH);
-            }
-        }
+
+#pragma omp atomic
+                renderedPixels++;
+
+                if (renderedPixels % (totalPixels / 10) == 0) {
+#pragma omp critical
+                    {
+                        printf("Render %d%%...\n", (100 * renderedPixels) / totalPixels);
+                    }
+                }
+
+
+            } // inner for loop
+        } // outer for loop (multi-threaded)
+
         clock_t end = clock();
         double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-        printf("Render 100%%\nRender time: %.3lfs\n", time_spent);
+        printf("Render finished!\nRender time: %.3lfs\n", time_spent);
         return image;
     }
     else {
@@ -225,35 +237,3 @@ Color* Render(Object3D* objects[], Light lights[], int num_obj, int num_lights, 
     }
     
 }
-
-#ifdef WINDOWS
-
-#include <windows.h>
-
-void openImage(const char* filePath) {
-    ShellExecute(0, "open", filePath, 0, 0, SW_SHOW);
-}
-
-#elif defined MACOS
-
-#include <string.h>
-
-void openImage(const char* filePath) {
-    char command[256];
-    strcpy(command, "open ");
-    strcat(command, filePath);
-    system(command);
-}
-
-#elif defined UNIXOS
-
-#include <string.h>
-
-void openImage(const char* filePath) {
-    char command[256];
-    strcpy(command, "xdg-open ");
-    strcat(command, filePath);
-    system(command);
-
-
-#endif
