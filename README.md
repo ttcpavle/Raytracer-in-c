@@ -1,6 +1,7 @@
 # Simple ray-tracer in C
-<p align="center">
-    <img src="/Raytracer/renders/monkey.png" alt="Rendered image example" width="50%"/>
+<p align="left">
+    <img src="/Raytracer/renders/monkey.png" alt="Rendered image example - monkey" width="45%"/>
+    <img src="/Raytracer/renders/cube.png" alt="Rendered image example - cube" width="45%"/>
 </p>
 
 ## What does this program do
@@ -43,6 +44,7 @@ Everything is controlled in `main()` function, there is no console or windows in
 - Info about functions is available in .h or .c files
 - More render examples in Raytracer/renders/
 - **REMEMBER TO EDIT SETTINGS.H**
+- The `multithreading` branch contains a version of the project that uses the OpenMP library for multithreading, enabling faster rendering. If you are using Visual Studio on Windows, make sure to enable OpenMP support in **Project** -> **Raytracer Properties** -> **C/C++** -> **Language** -> **Open MP Support**. Currently, multithreading does not work on Linux. If you find a solution, feel free to contribute, and once resolved, the `multithreading` branch will be merged into `master`.
 
 ### Features:
 - Faces are triangulated while reading wavefront (fan triangulation)
@@ -52,6 +54,7 @@ Everything is controlled in `main()` function, there is no console or windows in
 - You can follow render progress on console
 - Smooth shaded object (Gouraud shading)
 - Project is tested on windows (visual studio) and linux fedora
+- Multithreading on windows (multithreading branch)
 
 ### Not supported:
 - preserving group information in .obj files
@@ -67,3 +70,67 @@ Everything is controlled in `main()` function, there is no console or windows in
 - Origin of object fixes
 - windows.h for GUI (im not too familiar with this library)
 - maybe rewrite everything in OpenGL
+- fix multithreading for linux (branch multithreading)
+
+## How does it work?
+Here is a very quick explaination on how this c program outputs ray traced image:
+
+1. For each pixel in the image (represented as a matrix of color values, e.g., `{255, 255, 255}` for white), a ray is casted into the scene containing objects (for now 1 object).
+2. The ray is a 3D vector originating from the camera origin and extending toward a potential hit point on an object.
+3. The program checks for collisions with each object in the scene and each triangle that makes up the object.
+4. If no object is hit, the background color is used for pixel color.
+5. If object is hit, data such as the object's material (in this case, just the color), normal of the hit triangle, and light sources in scene are used to compute color for the pixel.
+6. This process is repeated for each pixel in the image, resulting in a complete image, which is then exported as png/jpeg using stb library.
+
+More detailed explaination on how object is transfomed and rendered will be available on wiki soon!
+
+## Project structure:
+```
+Raytracer
+|
+|   CMakeLists.txt           # used for building project with cmake
+|   
++---build                    # folder for all build files ( visual studio debug and release, makefile, executable etc.).
+|       .keep                # keep this empty folder
+|                    
++---docs
+|       Fast MinimumStorage RayTriangle Intersection.pdf       # documentation for Moller-Trumbore algorithm used in render.c
+|       
++---includes                 # header files that contain function prototypes, structures and descriptions
+|       camera.h 
+|       color.h
+|       common.h
+|       object.h
+|       render.h
+|       settings.h           # adjust settings for rendering in this file
+|       stb_image_write.h    # for exporting images
+|       transformations.h
+|       vector.h
+|       
++---objects                  # .obj files for 3d models also called wavefront files
+|       cube.obj
+|       monkey.obj
+|       render.png
+|       smooth_cube.obj
+|       smooth_monkey.obj
+|       sphere.obj
+|       torus.obj
+|       updated.obj
+|       
++---renders                  # folder for output images
+|       cube.png
+|       monkey.png
+|       render.png
+|       smooth_monkey.png
+|       sphere.png
+|       
+\---src                      # source files with function definitions
+        camera.c             # functions for camera transform
+        color.c              # some colors in form of vectors
+        common.c             # common functions
+        main.c               # starting point of program and setup for rendering
+        object.c             # functions for reading, exporting and transforming objects
+        render.c             # functions for rendering
+        transformations.c    # transformation matrices and vector transform
+        vector.c             # basic vector operations and quaternions
+```
