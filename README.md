@@ -44,7 +44,7 @@ Everything is controlled in `main()` function, there is no console or windows in
 - Info about functions is available in .h or .c files
 - More render examples in Raytracer/renders/
 - **REMEMBER TO EDIT SETTINGS.H**
-- The `multithreading` branch contains a version of the project that uses the OpenMP library for multithreading, enabling faster rendering. If you are using Visual Studio on Windows, make sure to enable OpenMP support in **Project** -> **Raytracer Properties** -> **C/C++** -> **Language** -> **Open MP Support**. Currently, multithreading does not work on Linux. If you find a solution, feel free to contribute, and once resolved, the `multithreading` branch will be merged into `master`.
+- OpenMP library is used for multithreading, enabling faster rendering. If you are using Visual Studio on Windows, make sure to enable OpenMP support in **Project** -> **Raytracer Properties** -> **C/C++** -> **Language** -> **Open MP Support**. Currently, multithreading does not work on Linux. If you find a solution, feel free to contribute.
 
 ### Features:
 - Faces are triangulated while reading wavefront (fan triangulation)
@@ -54,7 +54,7 @@ Everything is controlled in `main()` function, there is no console or windows in
 - You can follow render progress on console
 - Smooth shaded object (Gouraud shading)
 - Project is tested on windows (visual studio) and linux fedora
-- Multithreading on windows (multithreading branch)
+- Multithreading on windows
 
 ### Not supported:
 - preserving group information in .obj files
@@ -70,7 +70,7 @@ Everything is controlled in `main()` function, there is no console or windows in
 - Origin of object fixes
 - windows.h for GUI (im not too familiar with this library)
 - maybe rewrite everything in OpenGL
-- fix multithreading for linux (branch multithreading)
+- fix multithreading for linux
 
 ## How does it work?
 Here is a very quick explaination on how this c program outputs ray traced image:
