@@ -71,10 +71,13 @@ Everything is controlled in `main()` function, there is no console or windows in
 - windows.h for GUI (im not too familiar with this library)
 - maybe rewrite everything in OpenGL
 - fix multithreading for linux
+- Bounding Volume Hierarchy
+- Anti-aliaising
 
 ## How does it work?
 Here is a very quick explaination on how this c program outputs ray traced image:
 
+The idea is that calculating all lights in scene only for some of it to hit the camera is way too much computationally expensive, so we actually fire rays from camera which is the reverse approach.
 1. For each pixel in the image (represented as a matrix of color values, e.g., `{255, 255, 255}` for white), a ray is casted into the scene containing objects (for now 1 object).
 2. The ray is a 3D vector originating from the camera origin and extending toward a potential hit point on an object.
 3. The program checks for collisions with each object in the scene and each triangle that makes up the object.
@@ -82,7 +85,13 @@ Here is a very quick explaination on how this c program outputs ray traced image
 5. If object is hit, data such as the object's material (in this case, just the color), normal of the hit triangle, and light sources in scene are used to compute color for the pixel.
 6. This process is repeated for each pixel in the image, resulting in a complete image, which is then exported as png/jpeg using stb library.
 
-More detailed explaination on how object is transfomed and rendered will be available on wiki soon!
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/7a77eea1-790b-4417-862f-ba9ec079a307" alt="Ray_trace_diagram svg">
+</div>
+
+This program operates on cpu but in practice gpu-s are used for this kind of parallelized operations. More detailed explaination on how object is transfomed and rendered will be available on wiki soon!
+
+Here is some more info: https://developer.nvidia.com/discover/ray-tracing
 
 ## Project structure:
 ```
